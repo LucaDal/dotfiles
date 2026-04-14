@@ -1,4 +1,14 @@
 local M = {}
+
+local c_like_filetypes = {
+    c = true,
+    cpp = true,
+    objc = true,
+    objcpp = true,
+    cuda = true,
+    proto = true,
+}
+
 --Returns a dot repeatable version of a function to be used in keymaps
 --that pressing `.` will repeat the action.
 --Example: `vim.keymap.set('n', 'ct', dot_repeat(function() print(os.clock()) end), { expr = true })`
@@ -13,4 +23,21 @@ function M.dot_repeat(
         return 'g@l'
     end
 end
+
+function M.format_buffer(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+
+    local opts = {
+        async = true,
+        bufnr = bufnr,
+        lsp_format = "fallback",
+    }
+
+    if c_like_filetypes[vim.bo[bufnr].filetype] then
+        opts.lsp_format = "never"
+    end
+
+    require("conform").format(opts)
+end
+
 return M

@@ -146,6 +146,7 @@ return {
                             "--clang-tidy",
                             "--completion-style=detailed",
                             "--header-insertion=iwyu",
+                            "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
                         },
                         filetypes = {
                             "c",

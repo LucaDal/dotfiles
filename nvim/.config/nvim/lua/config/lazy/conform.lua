@@ -5,9 +5,9 @@ return{
     cmd = { 'ConformInfo' },
     keys = {
         {
-            '<leader>f',
+            '<leader>fm',
             function()
-                require('conform').format { async = true, lsp_format = 'fallback' }
+                require("config.utils").format_buffer()
             end,
             mode = '',
             desc = '[F]ormat buffer',
@@ -29,7 +29,16 @@ return{
                 }
             end
         end,
+        formatters = {
+            clang_format = {
+                prepend_args = {
+                    "--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
+                },
+            },
+        },
         formatters_by_ft = {
+            c = { 'clang_format' },
+            cpp = { 'clang_format' },
             lua = { 'stylua' },
             -- Conform can also run multiple formatters sequentially
             -- python = { "isort", "black" },

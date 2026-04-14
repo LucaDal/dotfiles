@@ -125,3 +125,4 @@ alias aider-lm='AIDER_THEME=dark OPENAI_API_BASE=http://localhost:1234/v1 OPENAI
 
 alias sshpi="ssh -i /home/luca/.ssh/id_for_pi_ed25519 'luca@lucadalessandro.freeddns.org'"
 
+export PATH="$HOME/develop/flutter/bin:$PATH"

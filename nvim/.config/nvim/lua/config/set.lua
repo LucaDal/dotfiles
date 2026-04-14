@@ -98,3 +98,12 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+  callback = function()
+    vim.bo.tabstop = 4
+    vim.bo.softtabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.expandtab = true
+  end,
+})
