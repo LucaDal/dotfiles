@@ -4,11 +4,13 @@ return {
     opts = {},
     -- Optional dependencies
     dependencies = {
-        "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons"
     },
     config = function ()
         require("aerial").setup({
+            -- Neovim 0.12 changes Tree-sitter match shapes in a way that breaks
+            -- the pinned aerial.nvim version in lazy-lock.json.
+            backends = { "lsp", "markdown", "asciidoc", "man" },
             -- optionally use on_attach to set keymaps when aerial has attached to a buffer
             on_attach = function(bufnr)
                 -- Jump forwards/backwards with '{' and '}'

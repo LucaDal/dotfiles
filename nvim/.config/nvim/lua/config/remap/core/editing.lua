@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local utils = require("config.utils")
 
 vim.g.mapleader = " "
 
@@ -9,12 +10,18 @@ map("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], {
     desc = "[S]ubstitute [s]tring",
 })
 
-map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Down" })
-map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Up" })
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
-map("v", "<A-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+map("n", "<A-j>", utils.move_line_down, { desc = "Move Down" })
+map("n", "<A-k>", utils.move_line_up, { desc = "Move Up" })
+map("i", "<A-j>", function()
+    utils.move_line_down()
+    vim.cmd("startinsert")
+end, { desc = "Move Down" })
+map("i", "<A-k>", function()
+    utils.move_line_up()
+    vim.cmd("startinsert")
+end, { desc = "Move Up" })
+map("v", "<A-j>", utils.move_selection_down, { desc = "Move Down" })
+map("v", "<A-k>", utils.move_selection_up, { desc = "Move Up" })
 
 map("n", "<leader>w", function()
     local wo = vim.wo
