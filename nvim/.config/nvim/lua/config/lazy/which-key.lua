@@ -45,7 +45,14 @@ return{ -- Useful plugin to show you pending keybinds.
         -- Document existing key chains
         spec = {
             { '<leader>s', group = '[S]earch' },
-            { '<leader>t', group = 'Neo [T]ree' },
+            { '<leader>r', group = '[R]efactor / [R]eplace' },
+            { '<leader>t', group = '[T]ools / Toggles' },
+            { '<leader>e', group = '[E]rrors' },
+            { '<leader>b', group = 'De[B]ug' },
+            { '<leader>g', group = '[G]it' },
+            { '<leader>i', group = 'Platform[I]O' },
+            { '<leader>l', group = '[L]ists' },
+            { '<leader>q', group = '[Q]uit / Sessions' },
         },
     }
 }

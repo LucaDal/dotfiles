@@ -9,8 +9,8 @@ return{
             function()
                 require("config.utils").format_buffer()
             end,
-            mode = '',
-            desc = '[F]ormat buffer',
+            mode = { 'n', 'v' },
+            desc = '[F]ormat document or selection',
         },
     },
     opts = {

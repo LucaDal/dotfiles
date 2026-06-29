@@ -17,14 +17,14 @@ return {
     keys = {
         -- Basic debugging keymaps, feel free to change to your liking!
         {
-            "<leader>d",
-            group = "Debugger",
+            "<leader>b",
+            group = "De[B]ug",
             nowait = true,
             remap = false,
-            desc = "Debugger",
+            desc = "De[B]ug",
         },
         {
-            "<leader>dt",
+            "<leader>bt",
             function()
                 require("dap").toggle_breakpoint()
             end,
@@ -60,7 +60,7 @@ return {
             remap = false,
         },
         {
-            "<leader>du",
+            "<leader>bu",
             function()
                 require("dap").step_out()
             end,
@@ -69,7 +69,7 @@ return {
             remap = false,
         },
         {
-            "<leader>dr",
+            "<leader>br",
             function()
                 require("dap").repl.open()
             end,
@@ -78,7 +78,7 @@ return {
             remap = false,
         },
         {
-            "<leader>dl",
+            "<leader>bl",
             function()
                 require("dap").run_last()
             end,
@@ -87,7 +87,7 @@ return {
             remap = false,
         },
         {
-            "<leader>dq",
+            "<leader>bq",
             function()
                 require("dap").terminate()
                 require("dapui").close()
@@ -98,7 +98,7 @@ return {
             remap = false,
         },
         {
-            "<leader>db",
+            "<leader>bb",
             function()
                 require("dap").list_breakpoints()
             end,
@@ -107,7 +107,7 @@ return {
             remap = false,
         },
         {
-            "<leader>de",
+            "<leader>be",
             function()
                 require("dap").set_exception_breakpoints({ "all" })
             end,

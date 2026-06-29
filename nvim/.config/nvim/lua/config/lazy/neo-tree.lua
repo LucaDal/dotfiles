@@ -11,11 +11,11 @@ return {
     },
     lazy = false,
     keys = {
-        {"<leader>t", group = "Neotree", desc = "Neo[T]ree"},
-        {'<leader>tt', ':Neotree toggle<CR>', desc = 'Neo[T]ree [T]oggle', silent = true },
-        {'<leader>t\\', ':Neotree focus<CR>', desc = 'Neo[T]ree focus'},
-        {'<leader>tb', ':Neotree focus buffers left<CR>', desc = 'Neo[T]ree [b]uffer'},
-        {'<leader>tg', ':Neotree focus git_status left<CR>', desc = 'Neo[T]ree [g]it status'},
+        {"<leader>t", group = "[T]ools / Toggles", desc = "[T]ools / Toggles"},
+        {'<leader>tt', ':Neotree toggle<CR>', desc = '[T]oggle file tree', silent = true },
+        {'<leader>t\\', ':Neotree focus<CR>', desc = '[T]ree focus'},
+        {'<leader>tb', ':Neotree focus buffers left<CR>', desc = '[T]ree [B]uffers'},
+        {'<leader>tg', ':Neotree focus git_status left<CR>', desc = '[T]ree [G]it status'},
     },
     --    init = function()
     --        vim.api.nvim_create_autocmd('BufEnter', {

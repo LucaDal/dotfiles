@@ -1,5 +1,8 @@
+vim.g.mapleader = " "
+
 require("config.remap")
 require("config.set")
+require("config.treesitter_compat").apply()
 require("config.lazy_init")
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})

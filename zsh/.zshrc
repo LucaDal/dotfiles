@@ -117,11 +117,7 @@ alias gl='git log --oneline --graph --decorate'
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$HOME/.local/bin:$PATH"
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/luca/.lmstudio/bin"
-# End of LM Studio CLI section
-# Variabili per Aider
-alias aider-lm='AIDER_THEME=dark OPENAI_API_BASE=http://localhost:1234/v1 OPENAI_API_KEY=lm-studio aider --openai-api-base http://localhost:1234/v1 --openai-api-key lm-studio --model openai/qwen/qwen3-coder-30b --show-diffs --no-auto-commits --no-show-model-warnings'
+alias speakers="/home/luca/.local/share/plasma/plasmoids/com.luca.speakercontrol/contents/scripts/speakers.sh"
 
 alias sshpi="ssh -i /home/luca/.ssh/id_for_pi_ed25519 'luca@lucadalessandro.freeddns.org'"
 

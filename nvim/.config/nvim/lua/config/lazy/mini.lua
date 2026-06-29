@@ -17,6 +17,14 @@ return{
         -- - sr)'  - [S]urround [R]eplace [)] [']
         require('mini.surround').setup()
 
+        require('mini.comment').setup({
+            mappings = {
+                comment = "",
+                comment_line = "",
+                comment_visual = "",
+                textobject = "",
+            },
+        })
         require('mini.icons').setup()
         -- Simple and easy statusline.
         --  You could remove this setup call if you don't like it,

@@ -19,6 +19,6 @@ return {
             end,
         })
         -- You probably also bant to set a keymap to toggle aerial
-        vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", {desc = '[A]erial: Functions view'})
+        vim.keymap.set("n", "<leader>lf", "<cmd>AerialToggle!<CR>", { desc = "[L]ist [F]unctions" })
     end
 }

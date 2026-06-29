@@ -1,7 +1,5 @@
 local map = vim.keymap.set
 
-vim.g.mapleader = " "
-
 map("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>", { desc = "Go to Left Window" })
 map("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>", { desc = "Go to Lower Window" })
 map("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>", { desc = "Go to Upper Window" })
