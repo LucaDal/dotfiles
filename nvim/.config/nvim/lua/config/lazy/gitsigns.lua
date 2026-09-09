@@ -39,7 +39,12 @@ return {
             map('n', '<leader>gD', open_diff(nil, 'working tree vs index (staged changes)'), {
                 desc = '[G]it diff vs in[D]ex',
             })
-            -- Toggles
+            map('n', '<leader>ghp', gitsigns.preview_hunk, { desc = '[G]it [H]unk [P]review' })
+            map('n', '<leader>ghs', gitsigns.stage_hunk, { desc = '[G]it [H]unk [S]tage / unstage' })
+            map('x', '<leader>ghs', function()
+                local first, last = vim.fn.line('.'), vim.fn.line('v')
+                gitsigns.stage_hunk({ math.min(first, last), math.max(first, last) })
+            end, { desc = '[G]it [H]unk [S]tage selected lines' })
         end,
         signs = {
                 add = { text = '+' },

@@ -1,30 +1,7 @@
 local M = {}
 
-local c_like_filetypes = {
-    c = true,
-    cpp = true,
-    objc = true,
-    objcpp = true,
-    cuda = true,
-    proto = true,
-}
-
 local function is_blank(line)
     return line:match("^%s*$") ~= nil
-end
-
-local function get_format_opts(bufnr)
-    local opts = {
-        async = true,
-        bufnr = bufnr,
-        lsp_format = "fallback",
-    }
-
-    if c_like_filetypes[vim.bo[bufnr].filetype] then
-        opts.lsp_format = "never"
-    end
-
-    return opts
 end
 
 local function normalize_text(text)
@@ -137,7 +114,9 @@ end
 
 function M.format_buffer(bufnr)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
-    require("conform").format(get_format_opts(bufnr))
+    local opts = require("config.formatting").options(bufnr)
+    opts.async = true
+    require("conform").format(opts)
 end
 
 function M.get_visual_range()

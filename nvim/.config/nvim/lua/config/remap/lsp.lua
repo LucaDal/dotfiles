@@ -19,6 +19,12 @@ local function with_telescope(picker, fallback)
     end
 end
 
+local function diagnostic_jump(direction, severity)
+    return function()
+        vim.diagnostic.jump({ count = direction * vim.v.count1, severity = severity })
+    end
+end
+
 function M.on_attach(bufnr)
     local workspace_symbols = with_telescope("lsp_dynamic_workspace_symbols", function(query)
         vim.lsp.buf.workspace_symbol(query or "")
@@ -29,7 +35,7 @@ function M.on_attach(bufnr)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts(bufnr, "Hover documentation"))
 
     vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename, opts(bufnr, "[R]e[n]ame symbol"))
-    vim.keymap.set({ "n", "x" }, "<leader>.", vim.lsp.buf.code_action, opts(bufnr, "Code actions"))
+    vim.keymap.set({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, opts(bufnr, "Code actions"))
     vim.keymap.set("n", "<leader>sa", function()
         workspace_symbols()
     end, opts(bufnr, "[S]earch [A]ll symbols"))
@@ -40,41 +46,18 @@ function M.on_attach(bufnr)
     vim.keymap.set("n", "<leader>st", vim.lsp.buf.type_definition, opts(bufnr, "[S]earch [T]ype definition"))
     vim.keymap.set("n", "<leader>rg", utils.organize_imports, opts(bufnr, "[R]emove unused usings / or[g]anize imports"))
 
-    vim.keymap.set("n", "<leader>en", function()
-        vim.diagnostic.goto_next({
-            severity = vim.diagnostic.severity.ERROR,
-        })
-    end, opts(bufnr, "[E]rror [N]ext"))
-    vim.keymap.set("n", "<leader>ep", function()
-        vim.diagnostic.goto_prev({
-            severity = vim.diagnostic.severity.ERROR,
-        })
-    end, opts(bufnr, "[E]rror [P]revious"))
-
+    local error_severity = vim.diagnostic.severity.ERROR
+    local warning_severity = { min = vim.diagnostic.severity.WARN }
+    vim.keymap.set("n", "<leader>en", diagnostic_jump(1, error_severity), opts(bufnr, "[E]rror [N]ext"))
+    vim.keymap.set("n", "<leader>ep", diagnostic_jump(-1, error_severity), opts(bufnr, "[E]rror [P]revious"))
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts(bufnr, "Show line diagnostics"))
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts(bufnr, "Signature help"))
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts(bufnr, "Next diagnostic"))
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts(bufnr, "Previous diagnostic"))
-    vim.keymap.set("n", "]e", function()
-        vim.diagnostic.goto_next({
-            severity = vim.diagnostic.severity.ERROR,
-        })
-    end, opts(bufnr, "Next error"))
-    vim.keymap.set("n", "[e", function()
-        vim.diagnostic.goto_prev({
-            severity = vim.diagnostic.severity.ERROR,
-        })
-    end, opts(bufnr, "Previous error"))
-    vim.keymap.set("n", "]w", function()
-        vim.diagnostic.goto_next({
-            severity = { min = vim.diagnostic.severity.WARN },
-        })
-    end, opts(bufnr, "Next warning/error"))
-    vim.keymap.set("n", "[w", function()
-        vim.diagnostic.goto_prev({
-            severity = { min = vim.diagnostic.severity.WARN },
-        })
-    end, opts(bufnr, "Previous warning/error"))
+    vim.keymap.set("n", "[d", diagnostic_jump(-1), opts(bufnr, "Previous diagnostic"))
+    vim.keymap.set("n", "]d", diagnostic_jump(1), opts(bufnr, "Next diagnostic"))
+    vim.keymap.set("n", "]e", diagnostic_jump(1, error_severity), opts(bufnr, "Next error"))
+    vim.keymap.set("n", "[e", diagnostic_jump(-1, error_severity), opts(bufnr, "Previous error"))
+    vim.keymap.set("n", "]w", diagnostic_jump(1, warning_severity), opts(bufnr, "Next warning/error"))
+    vim.keymap.set("n", "[w", diagnostic_jump(-1, warning_severity), opts(bufnr, "Previous warning/error"))
     vim.keymap.set("n", "<leader>vT", function()
         local cfg = vim.diagnostic.config()
         local new_virtual_text = not cfg.virtual_text

@@ -17,6 +17,9 @@ return{
         -- - sr)'  - [S]urround [R]eplace [)] [']
         require('mini.surround').setup()
 
+        -- Close typed brackets and quotes; Enter/Backspace handle empty pairs.
+        require('mini.pairs').setup()
+
         require('mini.comment').setup({
             mappings = {
                 comment = "",

@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 
 require("config.remap")
 require("config.set")
+require("config.autoreload").setup()
 require("config.treesitter_compat").apply()
 require("config.lazy_init")
 local augroup = vim.api.nvim_create_augroup
@@ -30,25 +31,6 @@ autocmd('TextYankPost', {
             timeout = 40,
         })
     end,
-})
-
-autocmd({ "BufWritePre" }, {
-    group = ThePrimeagenGroup,
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
-
-autocmd('BufEnter', {
-    group = ThePrimeagenGroup,
-    callback = function()
-        --  if vim.bo.filetype == "zig" then
-        vim.cmd.colorscheme("tokyonight-night")
-        --   else
-        --        vim.cmd.colorscheme("rose-pine-moon")
-        --         vim.cmd.colorscheme("catppuccin")
-        --   end
-        require('lualine').setup()
-    end
 })
 
 autocmd("LspAttach", {

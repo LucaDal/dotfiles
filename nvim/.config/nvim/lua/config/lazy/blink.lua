@@ -16,6 +16,12 @@ return {
         return "make install_jsregexp"
       end)(),
       opts = {},
+      config = function(_, opts)
+        require("luasnip").setup(opts)
+        require("luasnip.loaders.from_lua").lazy_load({
+          paths = { vim.fn.stdpath("config") .. "/snippets" },
+        })
+      end,
     },
     "folke/lazydev.nvim",
   },
@@ -28,10 +34,11 @@ return {
     keymap = {
       -- preset 'super-tab' = <Tab> accetta il completamento selezionato
       -- + include:
-      --   <c-space> per aprire menu / docs
+      --   <c-space> per aprire il menu / mostrare o nascondere la documentazione
       --   <c-n>/<c-p> per muoverti
       --   <tab>/<s-tab> per snippet
       preset = "super-tab",
+      ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
     },
 
     appearance = {
@@ -39,7 +46,17 @@ return {
     },
 
     completion = {
-      documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      documentation = { auto_show = false },
+      ghost_text = { enabled = true },
+      list = {
+        selection = {
+          -- Keep Tab available for snippet fields until an item is selected explicitly.
+          preselect = function()
+            return not require("blink.cmp").snippet_active({ direction = 1 })
+          end,
+          auto_insert = false,
+        },
+      },
     },
 
     sources = {
@@ -59,4 +76,3 @@ return {
     signature = { enabled = true },
   },
 }
-

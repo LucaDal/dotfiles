@@ -122,3 +122,6 @@ alias speakers="/home/luca/.local/share/plasma/plasmoids/com.luca.speakercontrol
 alias sshpi="ssh -i /home/luca/.ssh/id_for_pi_ed25519 'luca@lucadalessandro.freeddns.org'"
 
 export PATH="$HOME/develop/flutter/bin:$PATH"
+
+# variabili private
+[ -f ~/.config/zsh/private_env.zsh ] && source ~/.config/zsh/private_env.zsh

@@ -50,9 +50,12 @@ return{ -- Useful plugin to show you pending keybinds.
             { '<leader>e', group = '[E]rrors' },
             { '<leader>b', group = 'De[B]ug' },
             { '<leader>g', group = '[G]it' },
+            { '<leader>gh', group = 'Git [H]unks' },
+            { '<leader>f', group = '[F]ormat / Flutter' },
             { '<leader>i', group = 'Platform[I]O' },
             { '<leader>l', group = '[L]ists' },
             { '<leader>q', group = '[Q]uit / Sessions' },
+            { '<leader>o', group = 'AI l[O]cale' },
         },
     }
 }

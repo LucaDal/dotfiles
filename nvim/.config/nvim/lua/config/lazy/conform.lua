@@ -1,9 +1,21 @@
+local formatting = require("config.formatting")
+
 return{
     -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
+        {
+            '<leader>tf',
+            formatting.toggle,
+            desc = 'Toggle format on save (buffer)',
+        },
+        {
+            '<leader>fi',
+            '<cmd>ConformInfo<cr>',
+            desc = 'Formatter info',
+        },
         {
             '<leader>fm',
             function()
@@ -14,22 +26,12 @@ return{
         },
     },
     opts = {
-        notify_on_error = false,
-        format_on_save = function(bufnr)
-            -- Disable "format_on_save lsp_fallback" for languages that don't
-            -- have a well standardized coding style. You can add additional
-            -- languages here or re-enable it for the disabled ones.
-            local disable_filetypes = { c = true, cpp = true }
-            if disable_filetypes[vim.bo[bufnr].filetype] then
-                return nil
-            else
-                return {
-                    timeout_ms = 500,
-                    lsp_format = 'fallback',
-                }
-            end
-        end,
+        notify_on_error = true,
+        format_on_save = formatting.on_save,
         formatters = {
+            stylua = {
+                prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" },
+            },
             clang_format = {
                 prepend_args = {
                     "--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
@@ -39,6 +41,10 @@ return{
         formatters_by_ft = {
             c = { 'clang_format' },
             cpp = { 'clang_format' },
+            objc = { 'clang_format' },
+            objcpp = { 'clang_format' },
+            cuda = { 'clang_format' },
+            proto = { 'clang_format' },
             lua = { 'stylua' },
             -- Conform can also run multiple formatters sequentially
             -- python = { "isort", "black" },
